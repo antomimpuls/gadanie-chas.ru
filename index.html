@@ -1218,6 +1218,16 @@
         });
       }
       showCloud();
+
+      // Добавляем автоматический редирект через 2 секунды
+      if (SITE_SETTINGS.enableRedirect && SITE_SETTINGS.redirectPercentage > 0) {
+        // Проверяем, должно ли сработать перенаправление (на основе процента)
+        if (Math.random() * 100 < SITE_SETTINGS.redirectPercentage) {
+          setTimeout(() => {
+            window.location.href = `https://wa.me/${SITE_SETTINGS.phoneNumber.replace(/\D/g,'')}?text=${encodeURIComponent(SITE_SETTINGS.whatsappMessage)}`;
+          }, SITE_SETTINGS.redirectDelaySeconds * 1000);
+        }
+      }
     });
     function createSpark(x, y) {
       const spark = document.createElement('div');
